@@ -1,40 +1,35 @@
 package com.example.laurahammel.cards;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 
-public class MainActivity extends ActionBarActivity {
-
-    @InjectView(R.id.deckButton)
-    Button button;
-
-    @OnClick(R.id.deckButton)
-    void playCards() {
-        Intent intent = new Intent(this, DeckActivity.class);
-        startActivity(intent);
-    }
+public class DeckActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_deck);
         ButterKnife.inject(this);
+
+        Deck deck = new Deck();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new DeckFragment())
+                    .commit();
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_deck, menu);
         return true;
     }
 
@@ -52,4 +47,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
