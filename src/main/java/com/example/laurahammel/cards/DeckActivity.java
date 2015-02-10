@@ -1,5 +1,6 @@
 package com.example.laurahammel.cards;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -27,7 +28,9 @@ public class DeckActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         deck = new Deck();
-        Picasso.with(this).load(getString(R.string.card_back_uri_0)).into(cardButton);
+
+        Picasso.with(this).setDebugging(true);
+        Picasso.with(this).load(Uri.parse(getString(R.string.card_back_uri_0))).fit().into(cardButton);
     }
 
     @Override
