@@ -8,28 +8,36 @@ public class Deck {
 
     public static final int SEVENTY_EIGHT = 78;
 
-    List<Integer> deckArray;
-    int deckSize;
+    List<Integer> deckArray; // integer array that represents a deck of cards
+    List<Integer> discardArray; // integer array that represents the ordered discard pile
+    int deckSize; // deckSize = deckArray.size() + discardArray.size()
 
     // default deck size is 78 (standard tarot deck size)
     public Deck() {
         deckArray = createNewDeckArray(SEVENTY_EIGHT);
+        discardArray = new ArrayList<>();
         deckSize = SEVENTY_EIGHT;
     }
 
+    // initialize deck of custom size
     public Deck(int size) {
         deckArray = createNewDeckArray(size);
+        discardArray = new ArrayList<>();
         deckSize = size;
     }
 
-    // returns int that represents the top card in the deck & removes from deckArray
+    // returns int that represents the top card in the deck & removes it from deckArray,
+    // adds it to the top of discardArray
     public int pickUpTopCard() {
         if (!deckArray.isEmpty()) {
-            return deckArray.remove(deckArray.size() - 1);
+            int topCard = deckArray.size() - 1;
+            discardArray.add(topCard);
+            return deckArray.remove(topCard);
         }
         return -1;
     }
 
+    // shuffles the deckArray
     public void shuffle() {
         if (!deckArray.isEmpty()) {
             Collections.shuffle(deckArray);
@@ -46,15 +54,17 @@ public class Deck {
         return intArray;
     }
 
-    public List<Integer> getDeckArray() {
-        return deckArray;
-    }
+    public List<Integer> getDeckArray() { return deckArray; }
+
+    public List<Integer> getDiscardArray() { return discardArray; }
 
     public int getDeckSize() {
         return deckSize;
     }
 
-    public int cardsRemaining() {
+    public int howManyCardsRemaining() {
         return deckArray.size();
     }
+
+    public int howManyCardsDrawn() {return discardArray.size(); }
 }

@@ -4,11 +4,19 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class DeckActivity extends ActionBarActivity {
+
+    Deck deck;
+    int cardNumber;
+
+    @InjectView(R.id.cardButton)
+    ImageButton cardButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +24,9 @@ public class DeckActivity extends ActionBarActivity {
         setContentView(R.layout.activity_deck);
         ButterKnife.inject(this);
 
-        Deck deck = new Deck();
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new DeckFragment())
-                    .commit();
-        }
+        deck = new Deck();
     }
+
 
 
     @Override

@@ -14,10 +14,10 @@ import butterknife.OnClick;
 
 public class MainActivity extends ActionBarActivity {
 
-    @InjectView(R.id.deckButton)
+    @InjectView(R.id.cardButton)
     Button button;
 
-    @OnClick(R.id.deckButton)
+    @OnClick(R.id.cardButton)
     void playCards() {
         Intent intent = new Intent(this, DeckActivity.class);
         startActivity(intent);
