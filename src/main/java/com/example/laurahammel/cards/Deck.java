@@ -26,7 +26,7 @@ public class Deck {
         deckSize = size;
     }
 
-    // returns int that represents the top card in the deck & removes it from deckArray,
+    // returns int that represents the top cardfrag in the deck & removes it from deckArray,
     // adds it to the top of discardArray
     public int pickUpTopCard() {
         if (!deckArray.isEmpty()) {
