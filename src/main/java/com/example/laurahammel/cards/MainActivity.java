@@ -14,10 +14,10 @@ import butterknife.OnClick;
 
 public class MainActivity extends ActionBarActivity {
 
-    @InjectView(R.id.cardButton)
-    Button button;
+    @InjectView(R.id.playCardsButton)
+    Button playCardsButton;
 
-    @OnClick(R.id.cardButton)
+    @OnClick(R.id.playCardsButton)
     void playCards() {
         Intent intent = new Intent(this, DeckActivity.class);
         startActivity(intent);
@@ -29,7 +29,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

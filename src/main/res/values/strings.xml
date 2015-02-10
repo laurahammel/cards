@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_deck">DeckActivity</string>
-    <string name="deck_button">deck</string>
+    <string name="play_cards">play cards</string>
+    <string name="card_back_uri_0">https://sylphtarot.files.wordpress.com/2010/06/back4.jpg</string>
 
 </resources>

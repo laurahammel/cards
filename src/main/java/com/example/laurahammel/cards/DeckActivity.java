@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.squareup.picasso.Picasso;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -25,9 +27,8 @@ public class DeckActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         deck = new Deck();
+        Picasso.with(this).load(getString(R.string.card_back_uri_0)).into(cardButton);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

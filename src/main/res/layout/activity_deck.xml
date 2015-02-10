@@ -8,8 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.laurahammel.cards.DeckActivity">
 
-    <ImageView
-        android:id="@+id/card"
+    <ImageButton
+        android:id="@+id/cardButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
