@@ -8,8 +8,8 @@
     <string name="title_activity_deck">deck</string>
     <string name="play_cards">play cards</string>
     <string name="card_back_uri_0">https://s3.amazonaws.com/ksr/assets/001/306/217/3145a29765f313a63a6fa2782829411d_large.png?1384091739</string>
-    <string name="no_more_cards">there are no more cards in the deck!</string>
-    <string name="return_to_home">return to home</string>
-    <string name="cancel">cancel</string>
+    <string name="no_more_cards">no more cards in the deck!</string>
+    <string name="return_home">return home</string>
+    <string name="whatever">whatever</string>
 
 </resources>

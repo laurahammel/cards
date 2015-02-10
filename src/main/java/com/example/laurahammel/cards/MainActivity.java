@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.Button;
 
 import com.squareup.otto.Bus;
-import com.squareup.otto.ThreadEnforcer;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,8 +30,5 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-
-        bus = new Bus(ThreadEnforcer.MAIN);
-        bus.register(this);
     }
 }
