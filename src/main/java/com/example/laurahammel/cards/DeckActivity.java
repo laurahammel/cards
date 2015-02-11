@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -18,8 +20,10 @@ import butterknife.OnClick;
 public class DeckActivity extends ActionBarActivity {
 
     Deck deck;
-    int cardNumber;
+    int topCardValue;
+    boolean backPressedYet;
     public static final int THREE = 3;
+    public static final int TEN = 10;
 
     @InjectView(R.id.cardButton)
     ImageButton cardButton;
@@ -30,7 +34,8 @@ public class DeckActivity extends ActionBarActivity {
         setContentView(R.layout.activity_deck);
         ButterKnife.inject(this);
 
-        deck = new Deck(THREE);
+        deck = new Deck(TEN);
+        backPressedYet = false;
 
         Picasso.with(this)
                 .load(Uri.parse(getString(R.string.card_back_uri_0)))
@@ -39,17 +44,41 @@ public class DeckActivity extends ActionBarActivity {
                 .into(cardButton);
     }
 
+    @Override
+    public void onBackPressed() {
+        topCardValue = deck.putTopDiscardBack();
+
+        switch (topCardValue) {
+            case -2:
+                Toast.makeText(this, "there are no cards in the discard pile", Toast.LENGTH_SHORT).show();
+                break;
+            case -1:
+                Log.d("blink182", String.valueOf(deck.howManyCardsRemaining()) + " left in deck");
+                break;
+            default:
+                Log.d("blink182", "last card picked up is #" + Integer.toString(topCardValue));
+                Log.d("blink182", String.valueOf(deck.howManyCardsRemaining()) + " left in deck");
+                break;
+        }
+    }
+
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            super.onBackPressed();
+            return true;
+        }
+        return super.onKeyLongPress(keyCode, event);
+    }
+
     @OnClick(R.id.cardButton)
     public void pickUpTopCard() {
-        cardNumber = deck.pickUpTopCard();
-        if (cardNumber == -1) {
+        topCardValue = deck.pickUpTopCard();
+        if (topCardValue == -1) {
             noCardsLeftInDeck();
         } else {
+            Log.d("blink182", "last card picked up is #" + Integer.toString(topCardValue));
             Log.d("blink182", String.valueOf(deck.howManyCardsRemaining()) + " left in deck");
-//            CardFragment cardFragment = new CardFragment();
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.container, new CardFragment())
-//                    .commit();
         }
     }
 

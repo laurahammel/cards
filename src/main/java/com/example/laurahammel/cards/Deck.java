@@ -26,18 +26,44 @@ public class Deck {
         deckSize = size;
     }
 
-    // returns int that represents the top cardfrag in the deck & removes it from deckArray,
+    // returns int that represents the top card in the deck & removes it from deckArray,
     // adds it to the top of discardArray
     public int pickUpTopCard() {
         if (!deckArray.isEmpty()) {
-            int topCard = deckArray.size() - 1;
-            discardArray.add(topCard);
-            return deckArray.remove(topCard);
+            int topCardIndex = deckArray.size() - 1;
+            int topCardValue = deckArray.remove(topCardIndex);
+            discardArray.add(topCardValue);
+            return topCardValue;
         }
         return -1;
     }
 
+    public void putTopDiscardBackHelper() {
+        int topDiscardIndex = discardArray.size() - 1;
+        int topDiscardValue = discardArray.remove(topDiscardIndex);
+        deckArray.add(topDiscardValue);
+    }
+
+    public int putTopDiscardBack() {
+        int topCardValue = -2;
+        switch (discardArray.size()) {
+            case 0:
+                break;
+            case 1:
+                putTopDiscardBackHelper();
+                topCardValue = -1;
+                break;
+            default:
+                putTopDiscardBackHelper();
+                topCardValue = discardArray.get(discardArray.size() - 1);
+                break;
+        }
+        return topCardValue;
+    }
+
+
     // shuffles the deckArray
+
     public void shuffle() {
         if (!deckArray.isEmpty()) {
             Collections.shuffle(deckArray);
@@ -54,9 +80,13 @@ public class Deck {
         return intArray;
     }
 
-    public List<Integer> getDeckArray() { return deckArray; }
+    public List<Integer> getDeckArray() {
+        return deckArray;
+    }
 
-    public List<Integer> getDiscardArray() { return discardArray; }
+    public List<Integer> getDiscardArray() {
+        return discardArray;
+    }
 
     public int getDeckSize() {
         return deckSize;
@@ -66,5 +96,7 @@ public class Deck {
         return deckArray.size();
     }
 
-    public int howManyCardsDrawn() {return discardArray.size(); }
+    public int howManyCardsDrawn() {
+        return discardArray.size();
+    }
 }
