@@ -3,13 +3,11 @@ package com.example.laurahammel.cards;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +21,7 @@ public class DeckActivity extends ActionBarActivity {
     int topCardValue;
     boolean backPressedYet;
     public static final int THREE = 3;
+    public static final int FIVE = 5;
     public static final int TEN = 10;
 
     @InjectView(R.id.cardButton)
@@ -34,14 +33,37 @@ public class DeckActivity extends ActionBarActivity {
         setContentView(R.layout.activity_deck);
         ButterKnife.inject(this);
 
-        deck = new Deck(TEN);
+        deck = new Deck(FIVE);
         backPressedYet = false;
 
-        Picasso.with(this)
-                .load(Uri.parse(getString(R.string.card_back_uri_0)))
-                .fit()
-                .centerInside()
-                .into(cardButton);
+        loadImage(deck.getDeckSize());
+    }
+
+    public void loadImage(int cardValue) {
+        int drawableID;
+
+        switch (cardValue) {
+            case 0:
+                drawableID = R.drawable.swords;
+                break;
+            case 1:
+                drawableID = R.drawable.world;
+                break;
+            case 2:
+                drawableID = R.drawable.strength;
+                break;
+            case 3:
+                drawableID = R.drawable.wheel;
+                break;
+            case 4:
+                drawableID = R.drawable.pentacles;
+                break;
+            default:
+                drawableID = R.drawable.back;
+                break;
+        }
+
+        Picasso.with(this).load(drawableID).into(cardButton);
     }
 
     @Override
@@ -50,12 +72,13 @@ public class DeckActivity extends ActionBarActivity {
 
         switch (topCardValue) {
             case -2:
-                Toast.makeText(this, "there are no cards in the discard pile", Toast.LENGTH_SHORT).show();
-                break;
+                super.onBackPressed();
             case -1:
+                loadImage(deck.getDeckSize());
                 Log.d("blink182", String.valueOf(deck.howManyCardsRemaining()) + " left in deck");
                 break;
             default:
+                loadImage(topCardValue);
                 Log.d("blink182", "last card picked up is #" + Integer.toString(topCardValue));
                 Log.d("blink182", String.valueOf(deck.howManyCardsRemaining()) + " left in deck");
                 break;
@@ -77,6 +100,7 @@ public class DeckActivity extends ActionBarActivity {
         if (topCardValue == -1) {
             noCardsLeftInDeck();
         } else {
+            loadImage(topCardValue);
             Log.d("blink182", "last card picked up is #" + Integer.toString(topCardValue));
             Log.d("blink182", String.valueOf(deck.howManyCardsRemaining()) + " left in deck");
         }
@@ -100,6 +124,4 @@ public class DeckActivity extends ActionBarActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-
 }
