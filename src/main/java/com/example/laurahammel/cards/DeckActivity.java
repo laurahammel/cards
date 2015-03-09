@@ -20,9 +20,7 @@ public class DeckActivity extends ActionBarActivity {
     Deck deck;
     int topCardValue;
     boolean backPressedYet;
-    public static final int THREE = 3;
-    public static final int FIVE = 5;
-    public static final int TEN = 10;
+    public static final int SEVEN = 7;
 
     @InjectView(R.id.cardButton)
     ImageButton cardButton;
@@ -33,37 +31,22 @@ public class DeckActivity extends ActionBarActivity {
         setContentView(R.layout.activity_deck);
         ButterKnife.inject(this);
 
-        deck = new Deck(FIVE);
+        deck = new Deck(SEVEN);
         backPressedYet = false;
 
         loadImage(deck.getDeckSize());
     }
 
     public void loadImage(int cardValue) {
-        int drawableID;
-
-        switch (cardValue) {
-            case 0:
-                drawableID = R.drawable.swords;
-                break;
-            case 1:
-                drawableID = R.drawable.world;
-                break;
-            case 2:
-                drawableID = R.drawable.strength;
-                break;
-            case 3:
-                drawableID = R.drawable.wheel;
-                break;
-            case 4:
-                drawableID = R.drawable.pentacles;
-                break;
-            default:
-                drawableID = R.drawable.back;
-                break;
+        if (cardValue == deck.getDeckSize()) {
+            Picasso.with(this)
+                    .load(CardUrls.back)
+                    .into(cardButton);
+        } else {
+            Picasso.with(this)
+                    .load(CardUrls.list.get(cardValue))
+                    .into(cardButton);
         }
-
-        Picasso.with(this).load(drawableID).into(cardButton);
     }
 
     @Override

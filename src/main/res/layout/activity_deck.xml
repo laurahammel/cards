@@ -7,13 +7,11 @@
     tools:context="com.example.laurahammel.cards.DeckActivity"
     tools:ignore="MergeRootFrame">
 
-
     <ImageButton
         android:id="@+id/cardButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black"
-        android:src="@drawable/back"
         android:layout_gravity="center"/>
 
 </FrameLayout>
